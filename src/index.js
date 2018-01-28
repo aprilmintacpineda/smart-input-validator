@@ -1,5 +1,5 @@
-import { errMessages as defaultErrMessages } from './src/defaults';
-import validationRules from './src/rules';
+import { errMessages as defaultErrMessages } from './defaults';
+import validationRules from './rules';
 
 export default function validator(inputs, rules, customMesssages = null) {
   if (!inputs || inputs.constructor !== Object) throw new Error('input-validator-js: expected parameter 1 to be an object.');

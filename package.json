@@ -1,10 +1,10 @@
 {
-  "name": "nodejs-validator",
+  "name": "smart-input-validator",
   "version": "1.0.0",
   "description": "Input validator for javascript based apps.",
   "repository": {
     "type": "git",
-    "url": "git@github.com:aprilmintacpineda/nodejs-validator.git"
+    "url": "git@github.com:aprilmintacpineda/smart-input-validator.git"
   },
   "main": "index.js",
   "scripts": {

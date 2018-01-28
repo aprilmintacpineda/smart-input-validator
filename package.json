@@ -1,10 +1,10 @@
 {
-  "name": "input-validator",
+  "name": "nodejs-validator",
   "version": "1.0.0",
   "description": "Input validator for javascript based apps.",
   "repository": {
     "type": "git",
-    "url": "git@github.com:aprilmintacpineda/input-validator.git"
+    "url": "git@github.com:aprilmintacpineda/nodejs-validator.git"
   },
   "main": "index.js",
   "scripts": {

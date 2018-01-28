@@ -8,11 +8,7 @@
   },
   "main": "index.js",
   "scripts": {
-    "test": "jest",
-    "build": "node node_modules/webpack/bin/webpack.js",
-    "build:watch": "node node_modules/webpack/bin/webpack.js --watch",
-    "build:production": "node node_modules/webpack/bin/webpack.js -p --output-filename index.min.js",
-    "build:all": "npm run build && npm run build:production"
+    "test": "jest"
   },
   "author": "April Mintac Pineda <aprilmintacpineda@gmail.com>",
   "license": "MIT",
@@ -20,7 +16,6 @@
     "babel-loader": "^7.1.2",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.1",
-    "jest": "^22.1.4",
-    "webpack": "^3.10.0"
+    "jest": "^22.1.4"
   }
 }

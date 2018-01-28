@@ -1,4 +1,4 @@
-import validator from '../src/entry';
+import validator from '../index';
 
 describe('validator', () => {
   describe('input validation', () => {

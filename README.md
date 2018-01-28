@@ -1,1 +1,1 @@
-# input-validator-js
+# smart-input-validator

@@ -9,7 +9,8 @@
   "main": "build/index.js",
   "scripts": {
     "test": "jest",
-    "build": "babel src --out-dir build"
+    "build": "babel src --out-dir build",
+    "start": "babel-node dev/index.js"
   },
   "author": "April Mintac Pineda <aprilmintacpineda@gmail.com>",
   "license": "MIT",

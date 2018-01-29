@@ -23,7 +23,7 @@ function validator(inputs, rules) {
 
   if (!inputs || inputs.constructor !== Object) throw new Error('input-validator-js: expected parameter 1 to be an object.');
   if (!rules || rules.constructor !== Object) throw new Error('input-validator-js: expected parameter 2 to be an object.');
-  if (customMesssages != null && customMesssages.constructor !== Object) throw new Error('input-validator-js: expected parameter 1 to be an object');
+  if (customMesssages && customMesssages.constructor !== Object) throw new Error('input-validator-js: expected parameter 1 to be an object');
 
   var errors = new Set();
 
@@ -39,19 +39,20 @@ function validator(inputs, rules) {
       var cb_params = [];
 
       if (!_rules2.default[rule]) throw new Error('input-validator-js: unknown rule `' + rule + '` provided for field `' + field + '`. Please refer to the docs for more info.');
+      if (!inputs[field]) throw new Error('input-validator-js: unknown field ' + field + ' in inputs.');
 
       // :value
       if (val) {
-        // :another_field
-        // where :another_field is in inputs[another_field]
-        if (inputs[val]) {
-          validationResult = _rules2.default[rule]();
-          cb_params.push(field, inputs[val]);
-        } else if (val.includes(',')) {
+        if (val.includes(',')) {
           // :value1,value2,value3
           var vals = val.split(',');
           validationResult = _rules2.default[rule].apply(_rules2.default, [inputs[field]].concat(_toConsumableArray(vals)));
           cb_params.push.apply(cb_params, [field].concat(_toConsumableArray(vals)));
+        } else if (inputs[val]) {
+          // :another_field
+          // where :another_field is in inputs[another_field]
+          validationResult = _rules2.default[rule](inputs[field], inputs[val]);
+          cb_params.push(field, inputs[val]);
         } else {
           // :value1
           validationResult = _rules2.default[rule](inputs[field], val);

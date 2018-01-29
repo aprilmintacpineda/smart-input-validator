@@ -15,8 +15,8 @@ export default function validator(inputs, rules, customMesssages = null) {
       let validationResult = null;
       let cb_params = [];
 
-      if (!validationRules[rule]) throw new Error(`input-validator-js: unknown rule \`${rule}\` provided for field \`${field}\`. Please refer to the docs for more info.`);
-      if (!inputs[field]) throw new Error(`input-validator-js: unknown field ${field} in inputs.`);
+      if (typeof !validationRules[rule] == 'undefined') throw new Error(`input-validator-js: unknown rule \`${rule}\` provided for field \`${field}\`. Please refer to the docs for more info.`);
+      if (typeof inputs[field] == 'undefined') throw new Error(`input-validator-js: unknown field ${field} in inputs.`);
 
       // :value
       if (val) {

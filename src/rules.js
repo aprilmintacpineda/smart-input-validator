@@ -60,7 +60,12 @@ export default {
 
     if (args.includes('alphabets')) regex += 'A-Za-z';
     if (args.includes('spaces')) regex += ' ';
-    if (args.includes('numbers')) regex += '0-9';
+    
+    // :numbers
+    if (args.includes('numbers') && !args.includes('decimals')) regex += '0-9';
+    // :decimals,numbers && :decimals
+    if ((args.includes('decimals') && !args.includes('numbers'))
+     || (args.includes('decimals') && args.includes('numbers'))) regex += '0-9\.';
 
     regex = new RegExp(`[^${regex}]+`, 'igm');
 

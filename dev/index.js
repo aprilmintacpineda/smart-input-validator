@@ -5,14 +5,13 @@
 import validator from '../src';
 
 let result = validator({
-  password: 'test password'
+  name: 'test ing 123'
 }, {
-  password: `required|equals:repassword|min:8`
+  name: `len:10|notRegex:/(^[a-zA-Z ]+$)/`
 }, {
-  password: {
-    required: 'Please enter your desired password.',
-    equals: 'Passwords do not match.',
-    min: 'Password must be at least 8 characters long.'
+  name: {
+    len: 'I want your name to be exactly 10 characters long!',
+    notRegex: 'I want your name to contain only alphabets and spaces!'
   }
 });
 

@@ -1,20 +1,38 @@
 export default {
-  required: value => {
-    if (!value || !value.length || !value.trim().length) return -1;
-  },
-  equals: (val, b) => {
-    if (val.length && b.length && val != b) return -1;
-  },
+  /**
+   * length related valitations
+   */
   min: (val, len) => {
-    if (val.length && val.length < len) return -1;
+    if (val && val.length < len) return -1;
   },
   max: (val, len) => {
-    if (val.length && val.length > len) return -1;
+    if (val && val.length > len) return -1;
   },
   between: (val, min, max) => {
-    if (val.length
+    if (val
      && (val.length > max
       || val.length < min)) return -1;
+  },
+  len: (val, len) => {
+    if (val && val.length != len) return -1;
+  },
+  /**
+   * value related validations
+   */
+  notRegex: (val, regexString, flags = '') => {
+    if (val) {
+      let regex = new RegExp(`${regexString.replace(/^\/+/, '').replace(/\/+$/, '')}`, flags);
+      if (!regex.test(val)) return -1;
+    }
+  },
+  regex: (val, regexString, flags = '') => {
+    if (val) {
+      let regex = new RegExp(`${regexString.replace(/^\/+/, '').replace(/\/+$/, '')}`, flags);
+      if (regex.test(val)) return -1;
+    }
+  },
+  equals: (val, b) => {
+    if (val && b && val != b) return -1;
   },
   email: val => {
     if (val && val.length) {
@@ -47,5 +65,8 @@ export default {
     regex = new RegExp(`[^${regex}]+`, 'igm');
 
     if (regex.test(value)) return -1;
+  },
+  required: value => {
+    if (!value || !value.length || !value.trim().length) return -1;
   }
 };

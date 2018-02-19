@@ -72,6 +72,7 @@ export default {
     if (regex.test(value)) return -1;
   },
   required: value => {
-    if (!value || !value.length || !value.trim().length) return -1;
+    let val = value.toString();
+    if (!val || !val.length || !val.trim().length) return -1;
   }
 };

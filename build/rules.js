@@ -94,6 +94,7 @@ exports.default = {
   },
 
   required: function required(value) {
-    if (!value || !value.length || !value.trim().length) return -1;
+    var val = value.toString();
+    if (!val || !val.length || !val.trim().length) return -1;
   }
 };

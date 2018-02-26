@@ -6,54 +6,65 @@ export default function validator(inputs, rules, customMesssages = null) {
   if (!rules || rules.constructor !== Object) throw new Error('input-validator-js: expected parameter 2 to be an object.');
   if (customMesssages && customMesssages.constructor !== Object) throw new Error('input-validator-js: expected parameter 1 to be an object');
 
-  let errors = new Set;
+  const errors = new Set;
+  const options = rules._$options
+    ? { ...rules._$options }
+    : null;
+  let newRules = { ...rules };
+  delete newRules._$options;
 
-  Object.keys(rules).forEach(field => {
-    rules[field].split('|').forEach(segment => {
+  Object.keys(newRules).forEach(field => {
+    const targetField = field.replace(/\_$/, '');
+
+    for (let segment of rules[targetField].split('|')) {
       // rule:value
-      let [rule, val] = segment.split(':');
+      const [rule, val] = segment.split(':');
       let validationResult = null;
       let cb_params = [];
 
       if (typeof validationRules[rule] == 'undefined') throw new Error(`input-validator-js: unknown rule \`${rule}\` provided for field \`${field}\`. Please refer to the docs for more info.`);
-      if (typeof inputs[field] == 'undefined') throw new Error(`input-validator-js: unknown field ${field} in inputs.`);
+      if (typeof inputs[targetField] == 'undefined') throw new Error(`input-validator-js: unknown field ${field} in inputs.`);
 
       // :value
       if (val) {
         if (val.includes(',')) {
           // :value1,value2,value3
-          let vals =  val.split(',');
-          validationResult = validationRules[rule](inputs[field], ...vals);
+          const vals =  val.split(',');
+          validationResult = validationRules[rule](inputs[targetField], ...vals);
           cb_params.push(field, ...vals);
         } else if (inputs[val]) {
           // :another_field
           // where :another_field is in inputs[another_field]
-          validationResult = validationRules[rule](inputs[field], inputs[val]);
+          validationResult = validationRules[rule](inputs[targetField], inputs[val]);
           cb_params.push(field, inputs[val]);
         } else {
           // :value1
-          validationResult = validationRules[rule](inputs[field], val);
+          validationResult = validationRules[rule](inputs[targetField], val);
           cb_params.push(field, val);
         }
       } else {
         // no :value was defined
-        validationResult = validationRules[rule](inputs[field]);
+        validationResult = validationRules[rule](inputs[targetField]);
         cb_params.push(field);
       }
 
       if (validationResult == -1) {
-        if (undefined == customMesssages
-         || null == customMesssages
-         || !customMesssages[field]
-         || !customMesssages[field][rule]) {
+        if (customMesssages && customMesssages[targetField]
+          && !customMesssages[targetField][rule]
+          && customMesssages[targetField]._$all) {
+            errors.add(customMesssages[targetField]._$all);
+        } else if (customMesssages && customMesssages[targetField]
+          && customMesssages[targetField][rule]) {
+          errors.add(customMesssages[targetField][rule]);
+        } else {
           errors.add(
             defaultErrMessages[rule](...cb_params)
           );
-        } else {
-          errors.add(customMesssages[field][rule]);
         }
+
+        if (options && options.stopAtFirstError) break;
       }
-    });
+    }
   });
 
   return Array.from(errors);

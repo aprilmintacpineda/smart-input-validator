@@ -1,7 +1,7 @@
 # smart-input-validator
 
 ## Docs
-- [Validation rules](https://github.com/aprilmintacpineda/smart-input-validator/wiki/List-of-Validation-Rules)
+- [Wiki](https://github.com/aprilmintacpineda/smart-input-validator/wiki)
 - [change logs](https://github.com/aprilmintacpineda/smart-input-validator/tree/master/changelogs)
 
 ## Tests

@@ -27,7 +27,7 @@ export default {
   },
   between(valueToValidate, min, max) {
     if (valueToValidate) {
-      let newVal = parseFloat(valueToValidate);
+      const newVal = parseFloat(valueToValidate);
       return newVal > max || newVal < min? -1 : 1;
     }
   },
@@ -36,13 +36,13 @@ export default {
   },
   notRegex: (valueToValidate, regexString, flags = '') => {
     if (valueToValidate) {
-      let regex = new RegExp(`${regexString.replace(/^\/+/, '').replace(/\/+$/, '')}`, flags);
+      const regex = new RegExp(`${regexString.replace(/^\/+/, '').replace(/\/+$/, '')}`, flags);
       if (!regex.test(valueToValidate)) return -1;
     }
   },
   regex: (valueToValidate, regexString, flags = '') => {
     if (valueToValidate) {
-      let regex = new RegExp(`${regexString.replace(/^\/+/, '').replace(/\/+$/, '')}`, flags);
+      const regex = new RegExp(`${regexString.replace(/^\/+/, '').replace(/\/+$/, '')}`, flags);
       if (regex.test(valueToValidate)) return -1;
     }
   },
@@ -51,13 +51,13 @@ export default {
   },
   email: valueToValidate => {
     if (valueToValidate && valueToValidate.length) {
-      let regex = /^[-!#$%&'*+\/0-9=?A-Z^_a-z{|}~](\.?[-!#$%&'*+\/0-9=?A-Z^_a-z`{|}~])*@[a-zA-Z0-9](-?\.?[a-zA-Z0-9])*\.[a-zA-Z](-?[a-zA-Z0-9])+$/;
+      const regex = /^[-!#$%&'*+\/0-9=?A-Z^_a-z{|}~](\.?[-!#$%&'*+\/0-9=?A-Z^_a-z`{|}~])*@[a-zA-Z0-9](-?\.?[a-zA-Z0-9])*\.[a-zA-Z](-?[a-zA-Z0-9])+$/;
 
       if (valueToValidate.length > 254
       || !regex.test(valueToValidate)) return -1;
 
-      let [address, domain] = valueToValidate.split('@');
-      let [provider, ext] = domain.split('.');
+      const [address, domain] = valueToValidate.split('@');
+      const [provider, ext] = domain.split('.');
 
       if (address.length > 64
       || provider.length > 63
@@ -65,12 +65,12 @@ export default {
     }
   },
   in(...args) {
-    let value = args.shift();
+    const value = args.shift();
 
     if (value.length && !args.includes(value)) return -1;
   },
   allowedChars(...args) {
-    let value = args.shift();
+    const value = args.shift();
     let regex = '';
 
     if (args.includes('alphabets')) regex += 'A-Za-z';
@@ -87,7 +87,7 @@ export default {
     if (regex.test(value)) return -1;
   },
   required: value => {
-    let valueToValidate = value.toString();
+    const valueToValidate = value.toString();
     if (!valueToValidate || !valueToValidate.length || !valueToValidate.trim().length) return -1;
   },
   bool: value => {

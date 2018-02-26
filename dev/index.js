@@ -4,15 +4,21 @@
 
 import validator from '../src';
 
-let result = validator({
-  myNumber: 12435434.123
+const errors = validator({
+  value1: 'val',
+  value2: 'val',
 }, {
-  myNumber: `required|allowedChars:decimals`
+  value1: 'allowedChars:numbers|betweenLen:8,18|minLen:8',
+  value2: 'allowedChars:numbers|betweenLen:8,18|minLen:8'
 }, {
-  myNumber: {
-    required: 'Required!',
-    allowedChars: 'The number has invalid characters.'
+  value1: {
+    allowedChars: 'allowedChars error message for value1.',
+    _$all: 'default custom error message for value1.'
+  },
+  value2: {
+    betweenLen: 'betweenLen error message for value2.',
+    _$all: 'default custom error message for value2.'
   }
 });
 
-console.log(result);
+console.log(errors);

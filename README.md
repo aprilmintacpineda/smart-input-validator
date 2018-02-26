@@ -8,7 +8,7 @@
 
 ```
 Test Suites: 17 passed, 17 total
-Tests:       62 passed, 62 total
+Tests:       64 passed, 64 total
 ```
 
 ## Guide

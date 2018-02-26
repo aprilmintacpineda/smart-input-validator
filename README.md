@@ -4,6 +4,13 @@
 - [Validation rules](https://github.com/aprilmintacpineda/smart-input-validator/wiki/List-of-Validation-Rules)
 - [change logs](https://github.com/aprilmintacpineda/smart-input-validator/tree/master/changelogs)
 
+## Tests
+
+```
+Test Suites: 17 passed, 17 total
+Tests:       62 passed, 62 total
+```
+
 ## Guide
 
 #### Install

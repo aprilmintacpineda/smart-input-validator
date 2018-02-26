@@ -2,46 +2,61 @@ export default {
   /**
    * length related valitations
    */
-  min: (val, len) => {
-    if (val && val.length < len) return -1;
+  minLen(valueToValidate, len) {
+    if (valueToValidate && valueToValidate.length < len) return -1;
   },
-  max: (val, len) => {
-    if (val && val.length > len) return -1;
+  maxLen(valueToValidate, len = 1) {
+    if (valueToValidate && valueToValidate.length > len) return -1;
   },
-  between: (val, min, max) => {
-    if (val
-     && (val.length > max
-      || val.length < min)) return -1;
+  betweenLen(valueToValidate, min, max) {
+    if (valueToValidate
+     && (valueToValidate.length > max
+      || valueToValidate.length < min)) return -1;
   },
-  len: (val, len) => {
-    if (val && val.length != len) return -1;
+  exactLen(valueToValidate, len) {
+    if (valueToValidate && valueToValidate.length != len) return -1;
   },
   /**
    * value related validations
    */
-  notRegex: (val, regexString, flags = '') => {
-    if (val) {
-      let regex = new RegExp(`${regexString.replace(/^\/+/, '').replace(/\/+$/, '')}`, flags);
-      if (!regex.test(val)) return -1;
+  min(valueToValidate, min) {
+    if (valueToValidate && parseFloat(valueToValidate) < min) return -1;
+  },
+  max(valueToValidate, max) {
+    if (valueToValidate && parseFloat(valueToValidate) > max) return -1;
+  },
+  between(valueToValidate, min, max) {
+    if (valueToValidate) {
+      let newVal = parseFloat(valueToValidate);
+      return newVal > max || newVal < min? -1 : 1;
     }
   },
-  regex: (val, regexString, flags = '') => {
-    if (val) {
+  exactly: (valueToValidate, val) => {
+    if (valueToValidate && parseFloat(valueToValidate) != val) return -1;
+  },
+  notRegex: (valueToValidate, regexString, flags = '') => {
+    if (valueToValidate) {
       let regex = new RegExp(`${regexString.replace(/^\/+/, '').replace(/\/+$/, '')}`, flags);
-      if (regex.test(val)) return -1;
+      if (!regex.test(valueToValidate)) return -1;
     }
   },
-  equals: (val, b) => {
-    if (val && b && val != b) return -1;
+  regex: (valueToValidate, regexString, flags = '') => {
+    if (valueToValidate) {
+      let regex = new RegExp(`${regexString.replace(/^\/+/, '').replace(/\/+$/, '')}`, flags);
+      if (regex.test(valueToValidate)) return -1;
+    }
   },
-  email: val => {
-    if (val && val.length) {
+  equals: (valueToValidate, b) => {
+    if (valueToValidate && b && valueToValidate != b) return -1;
+  },
+  email: valueToValidate => {
+    if (valueToValidate && valueToValidate.length) {
       let regex = /^[-!#$%&'*+\/0-9=?A-Z^_a-z{|}~](\.?[-!#$%&'*+\/0-9=?A-Z^_a-z`{|}~])*@[a-zA-Z0-9](-?\.?[a-zA-Z0-9])*\.[a-zA-Z](-?[a-zA-Z0-9])+$/;
 
-      if (val.length > 254
-      || !regex.test(val)) return -1;
+      if (valueToValidate.length > 254
+      || !regex.test(valueToValidate)) return -1;
 
-      let [address, domain] = val.split('@');
+      let [address, domain] = valueToValidate.split('@');
       let [provider, ext] = domain.split('.');
 
       if (address.length > 64
@@ -49,7 +64,7 @@ export default {
       || ext.length > 63) return -1;
     }
   },
-  in: (...args) => {
+  in(...args) {
     let value = args.shift();
 
     if (value.length && !args.includes(value)) return -1;
@@ -63,7 +78,7 @@ export default {
     
     // :numbers
     if (args.includes('numbers') && !args.includes('decimals')) regex += '0-9';
-    // :decimals,numbers && :decimals
+    // :decimals,numbers || :decimals
     if ((args.includes('decimals') && !args.includes('numbers'))
      || (args.includes('decimals') && args.includes('numbers'))) regex += '0-9\.';
 
@@ -72,7 +87,10 @@ export default {
     if (regex.test(value)) return -1;
   },
   required: value => {
-    let val = value.toString();
-    if (!val || !val.length || !val.trim().length) return -1;
+    let valueToValidate = value.toString();
+    if (!valueToValidate || !valueToValidate.length || !valueToValidate.trim().length) return -1;
+  },
+  bool: value => {
+    if (typeof value != 'boolean') return -1;
   }
 };

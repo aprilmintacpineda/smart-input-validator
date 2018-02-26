@@ -38,7 +38,7 @@ function validator(inputs, rules) {
       var validationResult = null;
       var cb_params = [];
 
-      if (typeof !_rules2.default[rule] == 'undefined') throw new Error('input-validator-js: unknown rule `' + rule + '` provided for field `' + field + '`. Please refer to the docs for more info.');
+      if (typeof _rules2.default[rule] == 'undefined') throw new Error('input-validator-js: unknown rule `' + rule + '` provided for field `' + field + '`. Please refer to the docs for more info.');
       if (typeof inputs[field] == 'undefined') throw new Error('input-validator-js: unknown field ' + field + ' in inputs.');
 
       // :value

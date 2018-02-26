@@ -3,21 +3,33 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var errMessages = {
+var errMessages = exports.errMessages = {
   // length related validation messages,
-  min: function min(field, len) {
+  minLen: function minLen(field, len) {
     return field + ' must be at least ' + len + ' character' + (len > 1 ? 's' : '') + ' long.';
   },
-  max: function max(field, len) {
-    return field + ' must be at least ' + len + ' character' + (len > 1 ? 's' : '') + ' long.';
+  maxLen: function maxLen(field, len) {
+    return field + ' must be less than ' + len + ' character' + (len > 1 ? 's' : '') + ' long.';
   },
-  between: function between(field, min, max) {
-    return field + ' must be at least ' + min + ' to ' + max + ' characters long.';
+  betweenLen: function betweenLen(field, min, max) {
+    return field + ' must be ' + min + ' to ' + max + ' characters long.';
   },
-  len: function len(field, _len) {
-    return field + ' must be ' + _len + ' character' + (_len > 1 ? 's' : '') + ' long.';
+  exactLen: function exactLen(field, len) {
+    return field + ' must be ' + len + ' character' + (len > 1 ? 's' : '') + ' long.';
   },
   // value related validation messages
+  min: function min(field, len) {
+    return field + ' must be equal to or greater than ' + len + '.';
+  },
+  max: function max(field, len) {
+    return field + ' must be less than or equal to ' + len + '.';
+  },
+  between: function between(field, min, max) {
+    return field + ' must be greater than or equal to ' + min + ' and less than or equal to ' + max + '.';
+  },
+  exactly: function exactly(field, len) {
+    return field + ' must be equal to ' + len + '.';
+  },
   required: function required(fieldName) {
     return fieldName + ' is required.';
   },
@@ -35,6 +47,11 @@ var errMessages = {
   },
   notRegex: function notRegex(field) {
     return field + ' has invalid characters.';
+  },
+  bool: function bool(field) {
+    return field + ' must be a boolean.';
+  },
+  in: function _in(field) {
+    return field + ' is not a valid value.';
   }
 };
-exports.errMessages = errMessages;

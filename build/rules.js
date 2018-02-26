@@ -10,50 +10,69 @@ exports.default = {
   /**
    * length related valitations
    */
-  min: function min(val, len) {
-    if (val && val.length < len) return -1;
+  minLen: function minLen(valueToValidate, len) {
+    if (valueToValidate && valueToValidate.length < len) return -1;
   },
-  max: function max(val, len) {
-    if (val && val.length > len) return -1;
+  maxLen: function maxLen(valueToValidate) {
+    var len = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
+
+    if (valueToValidate && valueToValidate.length > len) return -1;
   },
-  between: function between(val, min, max) {
-    if (val && (val.length > max || val.length < min)) return -1;
+  betweenLen: function betweenLen(valueToValidate, min, max) {
+    if (valueToValidate && (valueToValidate.length > max || valueToValidate.length < min)) return -1;
   },
-  len: function len(val, _len) {
-    if (val && val.length != _len) return -1;
+  exactLen: function exactLen(valueToValidate, len) {
+    if (valueToValidate && valueToValidate.length != len) return -1;
   },
+
   /**
    * value related validations
    */
-  notRegex: function notRegex(val, regexString) {
-    var flags = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
-
-    if (val) {
-      var regex = new RegExp('' + regexString.replace(/^\/+/, '').replace(/\/+$/, ''), flags);
-      if (!regex.test(val)) return -1;
+  min: function min(valueToValidate, _min) {
+    if (valueToValidate && parseFloat(valueToValidate) < _min) return -1;
+  },
+  max: function max(valueToValidate, _max) {
+    if (valueToValidate && parseFloat(valueToValidate) > _max) return -1;
+  },
+  between: function between(valueToValidate, min, max) {
+    if (valueToValidate) {
+      var newVal = parseFloat(valueToValidate);
+      return newVal > max || newVal < min ? -1 : 1;
     }
   },
-  regex: function regex(val, regexString) {
+
+  exactly: function exactly(valueToValidate, val) {
+    if (valueToValidate && parseFloat(valueToValidate) != val) return -1;
+  },
+  notRegex: function notRegex(valueToValidate, regexString) {
     var flags = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
 
-    if (val) {
+    if (valueToValidate) {
       var regex = new RegExp('' + regexString.replace(/^\/+/, '').replace(/\/+$/, ''), flags);
-      if (regex.test(val)) return -1;
+      if (!regex.test(valueToValidate)) return -1;
     }
   },
-  equals: function equals(val, b) {
-    if (val && b && val != b) return -1;
+  regex: function regex(valueToValidate, regexString) {
+    var flags = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
+
+    if (valueToValidate) {
+      var regex = new RegExp('' + regexString.replace(/^\/+/, '').replace(/\/+$/, ''), flags);
+      if (regex.test(valueToValidate)) return -1;
+    }
   },
-  email: function email(val) {
-    if (val && val.length) {
+  equals: function equals(valueToValidate, b) {
+    if (valueToValidate && b && valueToValidate != b) return -1;
+  },
+  email: function email(valueToValidate) {
+    if (valueToValidate && valueToValidate.length) {
       var regex = /^[-!#$%&'*+\/0-9=?A-Z^_a-z{|}~](\.?[-!#$%&'*+\/0-9=?A-Z^_a-z`{|}~])*@[a-zA-Z0-9](-?\.?[a-zA-Z0-9])*\.[a-zA-Z](-?[a-zA-Z0-9])+$/;
 
-      if (val.length > 254 || !regex.test(val)) return -1;
+      if (valueToValidate.length > 254 || !regex.test(valueToValidate)) return -1;
 
-      var _val$split = val.split('@'),
-          _val$split2 = _slicedToArray(_val$split, 2),
-          address = _val$split2[0],
-          domain = _val$split2[1];
+      var _valueToValidate$spli = valueToValidate.split('@'),
+          _valueToValidate$spli2 = _slicedToArray(_valueToValidate$spli, 2),
+          address = _valueToValidate$spli2[0],
+          domain = _valueToValidate$spli2[1];
 
       var _domain$split = domain.split('.'),
           _domain$split2 = _slicedToArray(_domain$split, 2),
@@ -64,7 +83,7 @@ exports.default = {
     }
   },
   in: function _in() {
-    for (var _len2 = arguments.length, args = Array(_len2), _key = 0; _key < _len2; _key++) {
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
     }
 
@@ -73,7 +92,7 @@ exports.default = {
     if (value.length && !args.includes(value)) return -1;
   },
   allowedChars: function allowedChars() {
-    for (var _len3 = arguments.length, args = Array(_len3), _key2 = 0; _key2 < _len3; _key2++) {
+    for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
       args[_key2] = arguments[_key2];
     }
 
@@ -85,7 +104,7 @@ exports.default = {
 
     // :numbers
     if (args.includes('numbers') && !args.includes('decimals')) regex += '0-9';
-    // :decimals,numbers && :decimals
+    // :decimals,numbers || :decimals
     if (args.includes('decimals') && !args.includes('numbers') || args.includes('decimals') && args.includes('numbers')) regex += '0-9\.';
 
     regex = new RegExp('[^' + regex + ']+', 'igm');
@@ -94,7 +113,10 @@ exports.default = {
   },
 
   required: function required(value) {
-    var val = value.toString();
-    if (!val || !val.length || !val.trim().length) return -1;
+    var valueToValidate = value.toString();
+    if (!valueToValidate || !valueToValidate.length || !valueToValidate.trim().length) return -1;
+  },
+  bool: function bool(value) {
+    if (typeof value != 'boolean') return -1;
   }
 };

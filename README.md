@@ -2,6 +2,7 @@
 
 ## Docs
 - [Validation rules](https://github.com/aprilmintacpineda/smart-input-validator/wiki/List-of-Validation-Rules)
+- [change logs](https://github.com/aprilmintacpineda/smart-input-validator/changelogs)
 
 ## Guide
 

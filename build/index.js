@@ -34,74 +34,57 @@ function validator(inputs, rules) {
 
   Object.keys(newRules).forEach(function (field) {
     var targetField = field.replace(/\_$/, '');
+    var segments = rules[targetField].split('|');
 
-    var _iteratorNormalCompletion = true;
-    var _didIteratorError = false;
-    var _iteratorError = undefined;
+    for (var a = 0; a <= segments.length - 1; a++) {
+      var segment = segments[a];
 
-    try {
-      for (var _iterator = rules[targetField].split('|')[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-        var segment = _step.value;
+      // rule:value
 
-        // rule:value
-        var _segment$split = segment.split(':'),
-            _segment$split2 = _slicedToArray(_segment$split, 2),
-            rule = _segment$split2[0],
-            val = _segment$split2[1];
+      var _segment$split = segment.split(':'),
+          _segment$split2 = _slicedToArray(_segment$split, 2),
+          rule = _segment$split2[0],
+          val = _segment$split2[1];
 
-        var validationResult = null;
-        var cb_params = [];
+      var validationResult = null;
+      var cb_params = [];
 
-        if (typeof _rules2.default[rule] == 'undefined') throw new Error('input-validator-js: unknown rule `' + rule + '` provided for field `' + field + '`. Please refer to the docs for more info.');
-        if (typeof inputs[targetField] == 'undefined') throw new Error('input-validator-js: unknown field ' + field + ' in inputs.');
+      if (typeof _rules2.default[rule] == 'undefined') throw new Error('input-validator-js: unknown rule `' + rule + '` provided for field `' + field + '`. Please refer to the docs for more info.');
+      if (typeof inputs[targetField] == 'undefined') throw new Error('input-validator-js: unknown field ' + field + ' in inputs.');
 
-        // :value
-        if (val) {
-          if (val.includes(',')) {
-            // :value1,value2,value3
-            var vals = val.split(',');
-            validationResult = _rules2.default[rule].apply(_rules2.default, [inputs[targetField]].concat(_toConsumableArray(vals)));
-            cb_params.push.apply(cb_params, [field].concat(_toConsumableArray(vals)));
-          } else if (inputs[val]) {
-            // :another_field
-            // where :another_field is in inputs[another_field]
-            validationResult = _rules2.default[rule](inputs[targetField], inputs[val]);
-            cb_params.push(field, inputs[val]);
-          } else {
-            // :value1
-            validationResult = _rules2.default[rule](inputs[targetField], val);
-            cb_params.push(field, val);
-          }
+      // :value
+      if (val) {
+        if (val.includes(',')) {
+          // :value1,value2,value3
+          var vals = val.split(',');
+          validationResult = _rules2.default[rule].apply(_rules2.default, [inputs[targetField]].concat(_toConsumableArray(vals)));
+          cb_params.push.apply(cb_params, [field].concat(_toConsumableArray(vals)));
+        } else if (inputs[val]) {
+          // :another_field
+          // where :another_field is in inputs[another_field]
+          validationResult = _rules2.default[rule](inputs[targetField], inputs[val]);
+          cb_params.push(field, inputs[val]);
         } else {
-          // no :value was defined
-          validationResult = _rules2.default[rule](inputs[targetField]);
-          cb_params.push(field);
+          // :value1
+          validationResult = _rules2.default[rule](inputs[targetField], val);
+          cb_params.push(field, val);
         }
-
-        if (validationResult == -1) {
-          if (customMesssages && customMesssages[targetField] && !customMesssages[targetField][rule] && customMesssages[targetField]._$all) {
-            errors.add(customMesssages[targetField]._$all);
-          } else if (customMesssages && customMesssages[targetField] && customMesssages[targetField][rule]) {
-            errors.add(customMesssages[targetField][rule]);
-          } else {
-            errors.add(_defaults.errMessages[rule].apply(_defaults.errMessages, cb_params));
-          }
-
-          if (options && options.stopAtFirstError) break;
-        }
+      } else {
+        // no :value was defined
+        validationResult = _rules2.default[rule](inputs[targetField]);
+        cb_params.push(field);
       }
-    } catch (err) {
-      _didIteratorError = true;
-      _iteratorError = err;
-    } finally {
-      try {
-        if (!_iteratorNormalCompletion && _iterator.return) {
-          _iterator.return();
+
+      if (validationResult == -1) {
+        if (customMesssages && customMesssages[targetField] && !customMesssages[targetField][rule] && customMesssages[targetField]._$all) {
+          errors.add(customMesssages[targetField]._$all);
+        } else if (customMesssages && customMesssages[targetField] && customMesssages[targetField][rule]) {
+          errors.add(customMesssages[targetField][rule]);
+        } else {
+          errors.add(_defaults.errMessages[rule].apply(_defaults.errMessages, cb_params));
         }
-      } finally {
-        if (_didIteratorError) {
-          throw _iteratorError;
-        }
+
+        if (options && options.stopAtFirstError) break;
       }
     }
   });

@@ -8,7 +8,7 @@
   },
   "main": "build/index.js",
   "scripts": {
-    "test": "jest",
+    "test": "npm run build && jest",
     "build": "babel src --out-dir build",
     "start": "babel-node dev/index.js"
   },
@@ -17,6 +17,7 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-loader": "^7.1.3",
+    "babel-plugin-transform-es2015-for-of": "^6.23.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "jest": "^22.4.2"

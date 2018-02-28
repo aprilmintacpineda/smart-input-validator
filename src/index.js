@@ -15,11 +15,8 @@ export default function validator(inputs, rules, customMesssages = null) {
 
   Object.keys(newRules).forEach(field => {
     const targetField = field.replace(/\_$/, '');
-    const segments = rules[targetField].split('|');
 
-    for (let a = 0; a <= segments.length - 1; a++) {
-      const segment = segments[a];
-
+    for (let segment of rules[targetField].split('|')) {
       // rule:value
       const [rule, val] = segment.split(':');
       let validationResult = null;

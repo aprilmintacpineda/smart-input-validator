@@ -1,4 +1,4 @@
-import validator from '../../src/index';
+import validator from '../../build/index';
 
 describe('Validations: required', () => {
   it('works with custom error message', () => {

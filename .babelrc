@@ -1,7 +1,7 @@
 {
   "presets": [ "env" ],
   "plugins": [
-    "babel-plugin-transform-object-rest-spread",
-    "babel-plugin-transform-es2015-for-of"
+    "transform-object-rest-spread",
+    "transform-es2015-for-of"
   ]
 }

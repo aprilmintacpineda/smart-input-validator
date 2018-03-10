@@ -1,25 +1,23 @@
-# smart-input-validator
-
-## Docs
+# Docs
 - [Wiki](https://github.com/aprilmintacpineda/smart-input-validator/wiki)
 - [change logs](https://github.com/aprilmintacpineda/smart-input-validator/tree/master/changelogs)
 
-## Tests
+# Tests
 
 ```
 Test Suites: 17 passed, 17 total
 Tests:       64 passed, 64 total
 ```
 
-## Guide
+# Guide
 
-#### Install
+## Install
 
 ```
-npm install --save smart-input-validator
+npm i -s smart-input-validator
 ```
 
-#### usage
+## usage
 
 Validator takes 3 parameters. The third one is an optional parameter.
 
@@ -56,7 +54,7 @@ let errors = validator(
 );
 ```
 
-###### Example codes
+#### Example codes
 
 ```js
 import validator from 'smart-input-validator';
@@ -131,3 +129,7 @@ The error will be like so:
 ## Discussions / Contributions
 
 If you have a new feature request, feature enhancement request, bug report, clarification, or if you have something you want to point out about the docs, feel free to open an issue or send a PR.
+
+## License
+
+MIT

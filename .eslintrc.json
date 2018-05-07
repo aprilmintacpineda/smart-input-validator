@@ -1,0 +1,59 @@
+{
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  },
+  "parserOptions": {
+      "ecmaVersion": 8,
+      "sourceType": "module",
+      "ecmaFeatures": {
+        "experimentalObjectRestSpread": true,
+        "jsx": true
+      }
+  },
+  "rules": {
+    "rest-spread-spacing": ["error", "never"],
+    "semi": ["error", "always"],
+    "quotes": ["error", "single"],
+    "jsx-quotes": ["error", "prefer-double"],
+    "prefer-spread": ["error"],
+    "no-useless-call": ["error"],
+    "no-trailing-spaces": ["error"],
+    "space-before-blocks": ["error", "always"],
+    "no-floating-decimal": ["error"],
+    "comma-dangle": ["error", "never"],
+    "generator-star-spacing": ["error", {
+      "before": false, "after": true
+    }],
+    "switch-colon-spacing": ["error", {
+      "after": true,
+      "before": false
+    }],
+    "space-unary-ops": ["error", {
+      "words": true,
+      "nonwords": false
+    }],
+    "space-before-function-paren": ["error", {
+        "anonymous": "always",
+        "named": "always",
+        "asyncArrow": "always"
+    }],
+    "keyword-spacing": ["error", {
+      "before": true,
+      "after": true
+    }],
+    "key-spacing": ["error", {
+      "singleLine": {
+        "beforeColon": false,
+        "afterColon": true,
+        "mode": "strict"
+      },
+      "multiLine": {
+        "beforeColon": false,
+        "afterColon": true,
+        "mode": "strict"
+      }
+    }]
+  }
+}

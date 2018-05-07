@@ -2,30 +2,30 @@ export default {
   /**
    * length related valitations
    */
-  minLen(valueToValidate, len) {
+  minLen (valueToValidate, len) {
     if (valueToValidate && valueToValidate.length < len) return -1;
   },
-  maxLen(valueToValidate, len = 1) {
+  maxLen (valueToValidate, len = 1) {
     if (valueToValidate && valueToValidate.length > len) return -1;
   },
-  betweenLen(valueToValidate, min, max) {
+  betweenLen (valueToValidate, min, max) {
     if (valueToValidate
      && (valueToValidate.length > max
       || valueToValidate.length < min)) return -1;
   },
-  exactLen(valueToValidate, len) {
+  exactLen (valueToValidate, len) {
     if (valueToValidate && valueToValidate.length != len) return -1;
   },
   /**
    * value related validations
    */
-  min(valueToValidate, min) {
+  min (valueToValidate, min) {
     if (valueToValidate && parseFloat(valueToValidate) < min) return -1;
   },
-  max(valueToValidate, max) {
+  max (valueToValidate, max) {
     if (valueToValidate && parseFloat(valueToValidate) > max) return -1;
   },
-  between(valueToValidate, min, max) {
+  between (valueToValidate, min, max) {
     if (valueToValidate) {
       const newVal = parseFloat(valueToValidate);
       return newVal > max || newVal < min? -1 : 1;
@@ -64,18 +64,18 @@ export default {
       || ext.length > 63) return -1;
     }
   },
-  in(...args) {
+  in (...args) {
     const value = args.shift();
 
     if (value.length && !args.includes(value)) return -1;
   },
-  allowedChars(...args) {
+  allowedChars (...args) {
     const value = args.shift();
     let regex = '';
 
     if (args.includes('alphabets')) regex += 'A-Za-z';
     if (args.includes('spaces')) regex += ' ';
-    
+
     // :numbers
     if (args.includes('numbers') && !args.includes('decimals')) regex += '0-9';
     // :decimals,numbers || :decimals

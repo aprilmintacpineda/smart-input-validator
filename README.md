@@ -1,3 +1,7 @@
+# Repo status?
+
+This library is actively being maintained by the developer. Feature requests, enhancements, and bug reports are all welcome to the issue section.
+
 # Docs
 - [Wiki](https://github.com/aprilmintacpineda/smart-input-validator/wiki)
 - [change logs](https://github.com/aprilmintacpineda/smart-input-validator/tree/master/changelogs)
@@ -6,7 +10,7 @@
 
 ```
 Test Suites: 17 passed, 17 total
-Tests:       64 passed, 64 total
+Tests:       65 passed, 65 total
 ```
 
 # Guide

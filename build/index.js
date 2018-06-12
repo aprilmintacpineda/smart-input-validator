@@ -39,6 +39,8 @@ function validator(inputs, rules) {
     for (var a = 0; a <= segments.length - 1; a++) {
       var segment = segments[a];
 
+      if (!segment) continue;
+
       // rule:value
 
       var _segment$split = segment.split(':'),

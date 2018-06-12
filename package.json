@@ -11,8 +11,8 @@
     "test": "npm run build && jest && npm run eslint",
     "build": "babel src --out-dir build",
     "start": "babel-node dev/index.js",
-    "eslint": "node node_modules/eslint/bin/eslint.js --parser babel-eslint 'src/**/**/*.js'",
-    "eslint-watch": "node node_modules/eslint-watch/bin/esw --parser babel-eslint 'src/**/**/*.js' --watch"
+    "eslint": "node node_modules/eslint/bin/eslint.js src/**/*.js",
+    "eslint-watch": "node node_modules/eslint-watch/bin/esw src/**/*.js --watch"
   },
   "author": "April Mintac Pineda <aprilmintacpineda@gmail.com>",
   "license": "MIT",
@@ -24,6 +24,6 @@
     "babel-preset-env": "^1.7.0",
     "eslint": "^4.19.1",
     "eslint-watch": "^3.1.5",
-    "jest": "^22.4.4"
+    "jest": "^23.1.0"
   }
 }

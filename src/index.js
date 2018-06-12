@@ -20,6 +20,8 @@ export default function validator (inputs, rules, customMesssages = null) {
     for (let a = 0; a <= segments.length - 1; a++) {
       const segment = segments[a];
 
+      if (!segment) continue;
+
       // rule:value
       const [rule, val] = segment.split(':');
       let validationResult = null;

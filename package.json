@@ -8,22 +8,24 @@
   },
   "main": "build/index.js",
   "scripts": {
-    "test": "npm run build && jest && npm run eslint",
+    "test": "npm run eslint && npm run build && jest --env=node",
     "build": "babel src --out-dir build",
     "start": "babel-node dev/index.js",
     "eslint": "node node_modules/eslint/bin/eslint.js src/**/*.js",
-    "eslint-watch": "node node_modules/eslint-watch/bin/esw src/**/*.js --watch"
+    "eslint-watch": "node node_modules/eslint-watch/bin/esw src/**/*.js --watch",
+    "reinstallNodeModules": "rm -rf node_modules && npm i"
   },
   "author": "April Mintac Pineda <aprilmintacpineda@gmail.com>",
   "license": "MIT",
   "devDependencies": {
     "babel-cli": "^6.26.0",
-    "babel-eslint": "^8.2.3",
-    "babel-loader": "^7.1.4",
+    "babel-eslint": "^8.2.6",
+    "babel-loader": "^7.1.5",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
+    "babel-preset-minify": "^0.4.3",
     "eslint": "^4.19.1",
     "eslint-watch": "^3.1.5",
-    "jest": "^23.1.0"
+    "jest": "^23.4.2"
   }
 }

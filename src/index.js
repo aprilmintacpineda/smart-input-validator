@@ -27,8 +27,8 @@ export default function validator (inputs, rules, customMesssages = null) {
       let validationResult = null;
       let cb_params = [];
 
-      if (typeof validationRules[rule] == 'undefined') throw new Error(`input-validator-js: unknown rule \`${rule}\` provided for field \`${field}\`. Please refer to the docs for more info.`);
-      if (typeof inputs[targetField] == 'undefined') throw new Error(`input-validator-js: unknown field ${field} in inputs.`);
+      if (validationRules[rule] === undefined) throw new Error(`input-validator-js: unknown rule \`${rule}\` provided for field \`${field}\`. Please refer to the docs for more info.`);
+      if (inputs[targetField] === undefined) throw new Error(`input-validator-js: unknown field ${field} in inputs.`);
 
       // :value
       if (val) {
@@ -53,7 +53,7 @@ export default function validator (inputs, rules, customMesssages = null) {
         cb_params.push(field);
       }
 
-      if (validationResult == -1) {
+      if (validationResult === -1) {
         if (customMesssages && customMesssages[targetField]
           && !customMesssages[targetField][rule]
           && customMesssages[targetField]._$all) {

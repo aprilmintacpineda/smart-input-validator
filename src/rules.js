@@ -1,3 +1,22 @@
+function getCharSetsForRegex (args) {
+  let regex = '';
+  if (args.includes('alphabets')) regex += 'A-Za-z';
+  if (args.includes('spaces')) regex += ' ';
+
+  if (
+    (args.includes('decimals') && args.includes('numbers')) ||
+    (args.includes('decimals') && !args.includes('numbers'))
+  ) {
+    // :decimals,numbers || :decimals
+    regex += '0-9\\.';
+  } else if (args.includes('numbers')) {
+    // :numbers
+    regex += '0-9';
+  }
+
+  return regex;
+}
+
 export default {
   /**
    * length related valitations
@@ -65,26 +84,13 @@ export default {
     }
   },
   in (...args) {
-    const value = args.shift();
-
-    if (value.length && !args.includes(value)) return -1;
+    if (args[0].length && !args.slice(1).includes(args[0])) return -1;
   },
   allowedChars (...args) {
-    const value = args.shift();
-    let regex = '';
-
-    if (args.includes('alphabets')) regex += 'A-Za-z';
-    if (args.includes('spaces')) regex += ' ';
-
-    // :numbers
-    if (args.includes('numbers') && !args.includes('decimals')) regex += '0-9';
-    // :decimals,numbers || :decimals
-    if ((args.includes('decimals') && !args.includes('numbers'))
-     || (args.includes('decimals') && args.includes('numbers'))) regex += '0-9\.';
-
-    regex = new RegExp(`[^${regex}]+`, 'igm');
-
-    if (regex.test(value)) return -1;
+    if (new RegExp(`[^${getCharSetsForRegex(args.slice(1))}]+`, 'igm').test(args[0])) return -1;
+  },
+  notAllowedChars (...args) {
+    if (new RegExp(`[${getCharSetsForRegex(args.slice(1))}]+`, 'igm').test(args[0])) return -1;
   },
   required: value => {
     const valueToValidate = value.toString();

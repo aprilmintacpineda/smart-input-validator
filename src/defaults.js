@@ -13,6 +13,7 @@ export const errMessages = {
   equals: (field, subject) => `${field} does not match with ${subject}.`,
   email: () => 'Invalid email.',
   allowedChars: field => `${field} has invalid characters.`,
+  notAllowedChars: field => `${field} has invalid characters.`,
   regex: field => `${field} has invalid characters.`,
   notRegex: field => `${field} has invalid characters.`,
   bool: field => `${field} must be a boolean.`,

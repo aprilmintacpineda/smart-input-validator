@@ -26,6 +26,6 @@
     "babel-preset-minify": "^0.4.3",
     "eslint": "^4.19.1",
     "eslint-watch": "^3.1.5",
-    "jest": "^23.4.2"
+    "jest": "^23.5.0"
   }
 }

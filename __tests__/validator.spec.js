@@ -55,7 +55,7 @@ describe('validator', () => {
         validator({
           value1: 'ab'
         }, {
-          value1: 'betweenLen:3,6|minLen:5'
+          value1: 'betweenLen:3,6; minLen:5'
         })
       ).toEqual([
         'value1 must be 3 to 6 characters long.',
@@ -67,7 +67,7 @@ describe('validator', () => {
         validator({
           value1: 'ab'
         }, {
-          value1: 'betweenLen:3,6|minLen:5',
+          value1: 'betweenLen:3,6; minLen:5',
           _$options: {
             stopAtFirstError: true
           }
@@ -84,7 +84,7 @@ describe('validator', () => {
         validator({
           value1: 'ab'
         }, {
-          value1: 'betweenLen:3,6|minLen:5|'
+          value1: 'betweenLen:3,6; minLen:5'
         })
       ).toEqual([
         'value1 must be 3 to 6 characters long.',

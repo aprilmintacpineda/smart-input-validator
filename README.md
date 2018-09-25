@@ -18,7 +18,7 @@ validator(inputs, rules[, customErrorMessages])
 ```
 
 - **inputs** is a key-value pair where the key is the field name and the value is the user input.
-- **rules** is a key-value pair where the key is the field and the value will be the rules for the validation of that field. Each rules are separated by `|`. Don't add spaces before and after `,`, `:` and `|`.
+- **rules** is a key-value pair where the key is the field and the value will be the rules for the validation of that field. Each rules are separated by `; ` (note that there's a space after the semi-colon, that's important). Don't add spaces before and after `,` and `:`.
 - **customErrorMessages** is a multi-dimension key-value pair, the first dimension is the field and the second dimension is another key-value pair where the key is the rule and the value is the error message that will be returned.
 
 The general format is as follows:
@@ -32,7 +32,7 @@ let errors = validator(
   },
   // parameter 2 is the rules for the inputs
   {
-    input1: 'rule1|rule2|rule3|rule4:value1,value2,value3|rule5:value1'
+    input1: 'rule1; rule2; rule3; rule4:value1,value2,value3; rule5:value1'
   },
   // parameter 3 is the optional custom error messages for the validations
   {
@@ -57,10 +57,10 @@ let errors = validator({
   password: 'do',
   confirm_password: 'will-not-match'
 }, {
-  email: 'required|email',
-  firstname: 'required|allowedChars:alphabets,spaces',
-  password: 'required|min:8',
-  confirm_password: 'required|equals:password'
+  email: 'required; email',
+  firstname: 'required; allowedChars:alphabets,spaces',
+  password: 'required; min:8',
+  confirm_password: 'required; equals:password'
 }, {
   email: {
     required: 'Please enter your email.',
@@ -100,7 +100,7 @@ import validator from 'smart-input-validator';
 let errors = validator({
   name: 'a'
 }, {
-  name: 'required|allowedChars:alphabets,spaces|min:2',
+  name: 'required; allowedChars:alphabets,spaces; min:2',
 }, {
   name: {
     required: 'Please enter your name.',
@@ -131,7 +131,7 @@ let errors = validator(
   },
   // parameter 2 is the rules for the inputs
   {
-    input1: 'rule1|rule2|rule3|rule4:value1,value2,value3|rule5:value1'
+    input1: 'rule1; rule2; rule3; rule4:value1,value2,value3; rule5:value1'
   },
   // parameter 3 is the optional custom error messages for the validations
   {
@@ -192,8 +192,8 @@ const errors = validator({
   value1: 'val',
   value2: 'val',
 }, {
-  value1: 'allowedChars:numbers|betweenLen:8,18|minLen:8',
-  value2: 'allowedChars:numbers|betweenLen:8,18|minLen:8'
+  value1: 'allowedChars:numbers; betweenLen:8,18; minLen:8',
+  value2: 'allowedChars:numbers; betweenLen:8,18; minLen:8'
 }, {
   value1: {
     allowedChars: 'allowedChars error message for value1.'
@@ -226,8 +226,8 @@ const errors = validator({
   value1: 'val',
   value2: 'val',
 }, {
-  value1: 'allowedChars:numbers|betweenLen:8,18|minLen:8',
-  value2: 'allowedChars:numbers|betweenLen:8,18|minLen:8'
+  value1: 'allowedChars:numbers; betweenLen:8,18; minLen:8',
+  value2: 'allowedChars:numbers; betweenLen:8,18; minLen:8'
 }, {
   value1: {
     allowedChars: 'allowedChars error message for value1.',
@@ -268,8 +268,8 @@ const errors = validator({
   value1: 'val',
   value2: 'val',
 }, {
-  value1: 'allowedChars:numbers|betweenLen:8,18|minLen:8',
-  value2: 'allowedChars:numbers|betweenLen:8,18|minLen:8'
+  value1: 'allowedChars:numbers; betweenLen:8,18; minLen:8',
+  value2: 'allowedChars:numbers; betweenLen:8,18; minLen:8'
 }, {
   value1: {
     allowedChars: 'allowedChars error message for value1.'
@@ -296,15 +296,15 @@ The codes above will output:
 
 This is the default behavior. If you provide `_$options` you can change the way it behaves. `_$options` can be provided like so:
 
-```
+```js
 import validator from 'smart-input-validator';
 
 const errors = validator({
   value1: 'val',
   value2: 'val',
 }, {
-  value1: 'allowedChars:numbers|betweenLen:8,18|minLen:8',
-  value2: 'allowedChars:numbers|betweenLen:8,18|minLen:8',
+  value1: 'allowedChars:numbers; betweenLen:8,18; minLen:8',
+  value2: 'allowedChars:numbers; betweenLen:8,18; minLen:8',
   _$options: {
     stopAtFirstError: true
   }
@@ -322,7 +322,7 @@ console.log(errors);
 
 The codes above will ouput:
 
-```
+```js
 [ 'allowedChars error message for value1.',
   'value2 has invalid characters.' ]
 ```

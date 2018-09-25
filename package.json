@@ -7,6 +7,13 @@
     "url": "git@github.com:aprilmintacpineda/smart-input-validator.git"
   },
   "main": "build/index.js",
+  "files": [
+    "build/*",
+    "LICENSE",
+    "package.json",
+    "README.md",
+    "CODE_OF_CONDUCT.md"
+  ],
   "scripts": {
     "test": "npm run eslint && npm run build && jest --env=node",
     "build": "babel src --out-dir build",

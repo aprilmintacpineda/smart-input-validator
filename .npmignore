@@ -1,7 +1,0 @@
-dev
-__tests__
-src
-.babelrc
-package.json
-package-lock.json
-changelogs

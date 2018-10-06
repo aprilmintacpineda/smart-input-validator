@@ -1,51 +1,70 @@
-import validator from '../../build/index';
+import validator from '../../src/';
 
 describe('Validations: in', () => {
   it('works with custom error message', () => {
     expect(
-      validator({
-        value1: 'test'
-      }, {
-        value1: 'in:testtt,teeeest,tesssst'
-      }, {
-        value1: {
-          in: 'Must be in.'
+      validator(
+        {
+          value1: 'test'
+        },
+        {
+          value1: 'in:testtt,teeeest,tesssst'
+        },
+        {
+          value1: {
+            in: 'Must be in.'
+          }
         }
-      })
-    ).toEqual([ 'Must be in.' ]);
-  });
-  it('works with default error message', () => {
-    expect(
-      validator({
-        value1: 'test'
-      }, {
-        value1: 'in:testtt,teeeest,tesssst'
-      })
-    ).toEqual([ 'value1 is not a valid value.' ]);
+      )
+    ).toEqual(['Must be in.']);
   });
   it('Should not return an error', () => {
     expect(
-      validator({
-        value1: 'testtt'
-      }, {
-        value1: 'in:testtt,teeeest,tesssst'
-      })
+      validator(
+        {
+          value1: 'testtt'
+        },
+        {
+          value1: 'in:testtt,teeeest,tesssst'
+        },
+        {
+          value1: {
+            in: 'Must be in.'
+          }
+        }
+      )
     ).toEqual([]);
 
     expect(
-      validator({
-        value1: 'teeeest'
-      }, {
-        value1: 'in:testtt,teeeest,tesssst'
-      })
+      validator(
+        {
+          value1: 'teeeest'
+        },
+        {
+          value1: 'in:testtt,teeeest,tesssst'
+        },
+        {
+          value1: {
+            in: 'Must be in.'
+          }
+        }
+      )
     ).toEqual([]);
 
     expect(
-      validator({
-        value1: 'tesssst'
-      }, {
-        value1: 'in:testtt,teeeest,tesssst'
-      })
+      validator(
+        {
+          value1: 'tesssst'
+        },
+        {
+          value1: 'in:testtt,teeeest,tesssst'
+        },
+        {
+          value1: {
+            in: 'Must be in.'
+          }
+        }
+      )
     ).toEqual([]);
   });
 });

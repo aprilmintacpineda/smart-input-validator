@@ -1,4 +1,5 @@
 # Docs
+
 - [change logs](https://github.com/aprilmintacpineda/smart-input-validator/tree/master/changelogs)
 
 # Guide
@@ -11,15 +12,15 @@ npm i -s smart-input-validator
 
 ## usage
 
-Validator takes 3 parameters. The third one is an optional parameter.
+Validator takes 3 parameters.
 
 ```js
-validator(inputs, rules[, customErrorMessages])
+validator(inputs, rules, errorMessages);
 ```
 
 - **inputs** is a key-value pair where the key is the field name and the value is the user input.
-- **rules** is a key-value pair where the key is the field and the value will be the rules for the validation of that field. Each rules are separated by `; ` (note that there's a space after the semi-colon, that's important). Don't add spaces before and after `,` and `:`.
-- **customErrorMessages** is a multi-dimension key-value pair, the first dimension is the field and the second dimension is another key-value pair where the key is the rule and the value is the error message that will be returned.
+- **rules** is a key-value pair where the key is the field and the value will be the rules for the validation of that field. Each rules are separated by `;` (note that there's a space after the semi-colon, that's important). Don't add spaces before and after `,` and `:`.
+- **errorMessages** is a multi-dimension key-value pair, the first dimension is the field and the second dimension is another key-value pair where the key is the rule and the value is the error message that will be returned.
 
 The general format is as follows:
 
@@ -27,20 +28,20 @@ The general format is as follows:
 let errors = validator(
   // parameter 1 is user inputs
   {
-    input1: 'value1',
-    input2: 'value2'
+    input1: "value1",
+    input2: "value2"
   },
   // parameter 2 is the rules for the inputs
   {
-    input1: 'rule1; rule2; rule3; rule4:value1,value2,value3; rule5:value1'
+    input1: "rule1; rule2; rule3; rule4:value1,value2,value3; rule5:value1"
   },
-  // parameter 3 is the optional custom error messages for the validations
+  // parameter 3 is the error messages for the validations
   {
     input1: {
-      rule1: 'error!',
-      rule2: 'error!',
-      rule3: 'error!',
-      rule4: 'error!'
+      rule1: "error!",
+      rule2: "error!",
+      rule3: "error!",
+      rule4: "error!"
     }
   }
 );
@@ -49,72 +50,80 @@ let errors = validator(
 #### Example codes
 
 ```js
-import validator from 'smart-input-validator';
+import validator from "smart-input-validator";
 
-let errors = validator({
-  email: 'invalid-email',
-  firstname: '',
-  password: 'do',
-  confirm_password: 'will-not-match'
-}, {
-  email: 'required; email',
-  firstname: 'required; allowedChars:alphabets,spaces',
-  password: 'required; min:8',
-  confirm_password: 'required; equals:password'
-}, {
-  email: {
-    required: 'Please enter your email.',
-    email: 'Your email is invalid.'
+let errors = validator(
+  {
+    email: "invalid-email",
+    firstname: "",
+    password: "do",
+    confirm_password: "will-not-match"
   },
-  firstname: {
-    required: 'Please enter your first name.',
-    allowedChars: 'Your first name is invalid.'
+  {
+    email: "required; email",
+    firstname: "required; allowedChars:alphabets,spaces",
+    password: "required; min:8",
+    confirm_password: "required; equals:password"
   },
-  password: {
-    required: 'Please enter your password.',
-    min: 'Your password is too short.'
-  },
-  confirm_password: {
-    required: 'Please enter your password again.',
-    equals: 'Passwords do not match.'
+  {
+    email: {
+      required: "Please enter your email.",
+      email: "Your email is invalid."
+    },
+    firstname: {
+      required: "Please enter your first name.",
+      allowedChars: "Your first name is invalid."
+    },
+    password: {
+      required: "Please enter your password.",
+      min: "Your password is too short."
+    },
+    confirm_password: {
+      required: "Please enter your password again.",
+      equals: "Passwords do not match."
+    }
   }
-});
+);
 ```
 
 The variable `errors` above will be an array of error messages like so:
 
 ```js
 [
-  'Your email is invalid.',
-  'Please enter your first name.',
-  'Your password is too short.',
-  'Passwords do not match.'
-]
+  "Your email is invalid.",
+  "Please enter your first name.",
+  "Your password is too short.",
+  "Passwords do not match."
+];
 ```
 
 You can also have validations with the same error messages and only one will show.
 
 ```js
-import validator from 'smart-input-validator';
+import validator from "smart-input-validator";
 
-let errors = validator({
-  name: 'a'
-}, {
-  name: 'required; allowedChars:alphabets,spaces; min:2',
-}, {
-  name: {
-    required: 'Please enter your name.',
-    allowedChars: 'Your name is invalid.',
-    min: 'Your name is invalid.'
+let errors = validator(
+  {
+    name: "a"
+  },
+  {
+    name: "required; allowedChars:alphabets,spaces; min:2"
+  },
+  {
+    name: {
+      required: "Please enter your name.",
+      allowedChars: "Your name is invalid.",
+      min: "Your name is invalid."
+    }
   }
-});
+);
 ```
 
 The error will be like so:
 
 ```
 [
-  'Your name is invalid.'
+  "Your name is invalid."
 ]
 ```
 
@@ -126,20 +135,20 @@ The error will be like so:
 let errors = validator(
   // parameter 1 is user inputs
   {
-    input1: 'value1',
-    input2: 'value2'
+    input1: "value1",
+    input2: "value2"
   },
   // parameter 2 is the rules for the inputs
   {
-    input1: 'rule1; rule2; rule3; rule4:value1,value2,value3; rule5:value1'
+    input1: "rule1; rule2; rule3; rule4:value1,value2,value3; rule5:value1"
   },
-  // parameter 3 is the optional custom error messages for the validations
+  // parameter 3 is the error messages for the validations
   {
     input1: {
-      rule1: 'error!',
-      rule2: 'error!',
-      rule3: 'error!',
-      rule4: 'error!'
+      rule1: "error!",
+      rule2: "error!",
+      rule3: "error!",
+      rule4: "error!"
     }
   }
 );
@@ -158,7 +167,7 @@ let errors = validator(
 - `input1: 'max:255'` -- a numeric field whose maximum value is 255.
 - `input1: 'between:8,18'` -- a numeric field whose value should be 8 to 18.
 - `input1: 'exactly:255'` -- a numeric field whose value should be exactly 255.
-- `input1: 'required'` -- a field that should not be an empty __string__.
+- `input1: 'required'` -- a field that should not be an empty **string**.
 - `input1: 'email'` -- a field that should be a valid email.
 - `input1: 'allowedChars:alphabets,spaces,numbers,decimals'` -- a field that is restricted only to a particular set of characters. Accepted values are **alphabets,spaces,numbers,decimals**. Note that if you specify **decimals** you don't need to specify **numbers**.
 - `input1: 'notAllowedChars:alphabets,spaces,numbers,decimals'` -- Similar to allowedChars, except you specify the character set that you don't allow.
@@ -175,7 +184,7 @@ let errors = validator(
 
 ## What it does
 
-`_$all` is a `string` that basically acts as the default error that you can provide. If a field has an error and you did not provide a custom error message for that field, __but__ the `_$all` was provided on that field, then it will use it.
+`_$all` is a `string` that basically acts as the default error message that you can provide. If a field has an error and you did not provide an error message for that field, **but** the `_$all` was provided on that field, then it will use it.
 
 ## Use case
 
@@ -183,61 +192,62 @@ let errors = validator(
 
 ## Usage
 
-You provide `_$all` in the `custom error messages` parameter.
+You provide `_$all` in the `error messages` parameter.
 
 ```js
-import validator from 'smart-input-validator';
+import validator from "smart-input-validator";
 
-const errors = validator({
-  value1: 'val',
-  value2: 'val',
-}, {
-  value1: 'allowedChars:numbers; betweenLen:8,18; minLen:8',
-  value2: 'allowedChars:numbers; betweenLen:8,18; minLen:8'
-}, {
-  value1: {
-    allowedChars: 'allowedChars error message for value1.'
+const errors = validator(
+  {
+    value1: "val",
+    value2: "val"
   },
-  value2: {
-    betweenLen: 'betweenLen error message for value2.'
+  {
+    value1: "allowedChars:numbers; betweenLen:8,18; minLen:8",
+    value2: "allowedChars:numbers; betweenLen:8,18; minLen:8"
+  },
+  {
+    value1: {
+      allowedChars: "allowedChars error message for value1.",
+      betweenLen: "betweenLen error message for value1.",
+      minLen: "minLen error message for value1."
+    },
+    value2: {
+      betweenLen: "betweenLen error message for value2.",
+      betweenLen: "betweenLen error message for value2.",
+      minLen: "minLen error message for value2."
+    }
   }
-});
+);
 
 console.log(errors);
 ```
 
-The codes above will output.
+The codes above will fail because error messages for `betweenLen` and `minLen` are missing. But if you provide `_$all`:
 
 ```js
-[ 'allowedChars error message for value1.',
-  'value1 must be 8 to 18 characters long.',
-  'value1 must be at least 8 characters long.',
-  'value2 has invalid characters.',
-  'betweenLen error message for value2.',
-  'value2 must be at least 8 characters long.' ]
-```
+import validator from "smart-input-validator";
 
-Built-in default error message was given as errors. But if you provide `_$all`:
-
-```js
-import validator from 'smart-input-validator';
-
-const errors = validator({
-  value1: 'val',
-  value2: 'val',
-}, {
-  value1: 'allowedChars:numbers; betweenLen:8,18; minLen:8',
-  value2: 'allowedChars:numbers; betweenLen:8,18; minLen:8'
-}, {
-  value1: {
-    allowedChars: 'allowedChars error message for value1.',
-    _$all: 'default custom error message for value1.'
+const errors = validator(
+  {
+    value1: "val",
+    value2: "val"
   },
-  value2: {
-    betweenLen: 'betweenLen error message for value2.',
-    _$all: 'default custom error message for value2.'
+  {
+    value1: "allowedChars:numbers; betweenLen:8,18; minLen:8",
+    value2: "allowedChars:numbers; betweenLen:8,18; minLen:8"
+  },
+  {
+    value1: {
+      allowedChars: "allowedChars error message for value1.",
+      _$all: "default custom error message for value1."
+    },
+    value2: {
+      betweenLen: "betweenLen error message for value2.",
+      _$all: "default custom error message for value2."
+    }
   }
-});
+);
 
 console.log(errors);
 ```
@@ -245,13 +255,13 @@ console.log(errors);
 The codes above will now output:
 
 ```js
-[ 'allowedChars error message for value1.',
-  'default custom error message for value1.',
-  'default custom error message for value2.',
-  'betweenLen error message for value2.' ]
+[
+  "allowedChars error message for value1.",
+  "default custom error message for value1.",
+  "default custom error message for value2.",
+  "betweenLen error message for value2."
+];
 ```
-
-Now the `_$all` was used as default error message.
 
 # Validation options
 
@@ -262,22 +272,30 @@ Now the `_$all` was used as default error message.
 ## Usage
 
 ```js
-import validator from 'smart-input-validator';
+import validator from "smart-input-validator";
 
-const errors = validator({
-  value1: 'val',
-  value2: 'val',
-}, {
-  value1: 'allowedChars:numbers; betweenLen:8,18; minLen:8',
-  value2: 'allowedChars:numbers; betweenLen:8,18; minLen:8'
-}, {
-  value1: {
-    allowedChars: 'allowedChars error message for value1.'
+const errors = validator(
+  {
+    value1: "val",
+    value2: "val"
   },
-  value2: {
-    betweenLen: 'betweenLen error message for value2.'
+  {
+    value1: "allowedChars:numbers; betweenLen:8,18; minLen:8",
+    value2: "allowedChars:numbers; betweenLen:8,18; minLen:8"
+  },
+  {
+    value1: {
+      allowedChars: "allowedChars error message for value1.",
+      betweenLen: "betweenLen error message for value1.",
+      minLen: "minLen error message for value1."
+    },
+    value2: {
+      betweenLen: "betweenLen error message for value2.",
+      betweenLen: "betweenLen error message for value2.",
+      minLen: "minLen error message for value1."
+    }
   }
-});
+);
 
 console.log(errors);
 ```
@@ -285,37 +303,46 @@ console.log(errors);
 The codes above will output:
 
 ```js
-
-[ 'allowedChars error message for value1.',
-  'value1 must be 8 to 18 characters long.',
-  'value1 must be at least 8 characters long.',
-  'value2 has invalid characters.',
-  'betweenLen error message for value2.',
-  'value2 must be at least 8 characters long.' ]
+[
+  "allowedChars error message for value1.",
+  "value1 must be 8 to 18 characters long.",
+  "value1 must be at least 8 characters long.",
+  "value2 has invalid characters.",
+  "betweenLen error message for value2.",
+  "value2 must be at least 8 characters long."
+];
 ```
 
 This is the default behavior. If you provide `_$options` you can change the way it behaves. `_$options` can be provided like so:
 
 ```js
-import validator from 'smart-input-validator';
+import validator from "smart-input-validator";
 
-const errors = validator({
-  value1: 'val',
-  value2: 'val',
-}, {
-  value1: 'allowedChars:numbers; betweenLen:8,18; minLen:8',
-  value2: 'allowedChars:numbers; betweenLen:8,18; minLen:8',
-  _$options: {
-    stopAtFirstError: true
-  }
-}, {
-  value1: {
-    allowedChars: 'allowedChars error message for value1.'
+const errors = validator(
+  {
+    value1: "val",
+    value2: "val"
   },
-  value2: {
-    betweenLen: 'betweenLen error message for value2.'
+  {
+    value1: "allowedChars:numbers; betweenLen:8,18; minLen:8",
+    value2: "allowedChars:numbers; betweenLen:8,18; minLen:8",
+    _$options: {
+      stopAtFirstError: true
+    }
+  },
+  {
+    value1: {
+      allowedChars: "allowedChars error message for value1.",
+      betweenLen: "betweenLen error message for value1.",
+      minLen: "minLen error message for value1."
+    },
+    value2: {
+      betweenLen: "betweenLen error message for value2.",
+      betweenLen: "betweenLen error message for value2.",
+      minLen: "minLen error message for value2."
+    }
   }
-});
+);
 
 console.log(errors);
 ```
@@ -323,13 +350,12 @@ console.log(errors);
 The codes above will ouput:
 
 ```js
-[ 'allowedChars error message for value1.',
-  'value2 has invalid characters.' ]
+["allowedChars error message for value1.", "value2 has invalid characters."];
 ```
 
 ## Options
 
-- `_$options.stopAtFirstError` -- __not required__ -- tells the validator to stop at the very first error occurrence, so if an error was encountered on the very first occurrence, the validation will stop there and move to validated the next field.
+- `_$options.stopAtFirstError` -- **not required** -- tells the validator to stop at the very first error occurrence, so if an error was encountered on the very first occurrence, the validation will stop there and move to validated the next field.
 
 ## Discussions / Contributions
 

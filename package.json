@@ -8,15 +8,15 @@
   },
   "main": "build/index.js",
   "files": [
-    "build/*",
+    "lib/*",
     "LICENSE",
     "package.json",
     "README.md",
     "CODE_OF_CONDUCT.md"
   ],
   "scripts": {
-    "test": "npm run eslint && npm run build && jest --env=node",
-    "build": "babel src --out-dir build",
+    "test": "npm run eslint && npm run build && jest --env=node --coverage",
+    "build": "node build.js",
     "start": "babel-node dev/index.js",
     "eslint": "node node_modules/eslint/bin/eslint.js src/**/*.js",
     "eslint-watch": "node node_modules/eslint-watch/bin/esw src/**/*.js --watch",
@@ -25,6 +25,9 @@
   "author": "April Mintac Pineda <aprilmintacpineda@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/plugin-syntax-object-rest-spread": "^7.0.0",
+    "@babel/preset-env": "^7.1.0",
     "babel-cli": "^6.26.0",
     "babel-eslint": "^8.2.6",
     "babel-loader": "^7.1.5",
@@ -33,6 +36,6 @@
     "babel-preset-minify": "^0.4.3",
     "eslint": "^4.19.1",
     "eslint-watch": "^3.1.5",
-    "jest": "^23.5.0"
+    "jest": "^23.6.0"
   }
 }

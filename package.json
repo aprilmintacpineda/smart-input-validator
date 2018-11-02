@@ -20,7 +20,7 @@
     "start": "babel-node dev/index.js",
     "eslint": "node node_modules/eslint/bin/eslint.js src/**/*.js",
     "eslint-watch": "node node_modules/eslint-watch/bin/esw src/**/*.js --watch",
-    "reinstallNodeModules": "rm -rf node_modules && npm i"
+    "reinstallNodeModules": "rm -rf node_modules package-lock.json && npm i"
   },
   "author": "April Mintac Pineda <aprilmintacpineda@gmail.com>",
   "license": "MIT",
@@ -29,13 +29,13 @@
     "@babel/plugin-syntax-object-rest-spread": "^7.0.0",
     "@babel/preset-env": "^7.1.0",
     "babel-cli": "^6.26.0",
-    "babel-eslint": "^8.2.6",
-    "babel-loader": "^7.1.5",
+    "babel-eslint": "^10.0.1",
+    "babel-loader": "^8.0.4",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
-    "babel-preset-minify": "^0.4.3",
-    "eslint": "^4.19.1",
-    "eslint-watch": "^3.1.5",
+    "babel-preset-minify": "^0.5.0",
+    "eslint": "^5.8.0",
+    "eslint-watch": "^4.0.2",
     "jest": "^23.6.0"
   }
 }

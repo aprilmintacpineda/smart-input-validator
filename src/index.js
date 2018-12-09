@@ -1,15 +1,15 @@
 function getCharSetsForRegex (args) {
   let regex = '';
-  if (args.includes('alphabets')) regex += 'A-Za-z';
-  if (args.includes('spaces')) regex += ' ';
+  if (args.indexOf('alphabets') > -1) regex += 'A-Za-z';
+  if (args.indexOf('spaces') > -1) regex += ' ';
 
   if (
-    (args.includes('decimals') && args.includes('numbers')) ||
-    (args.includes('decimals') && !args.includes('numbers'))
+    (args.indexOf('decimals') > -1 && args.indexOf('numbers') > -1) ||
+    (args.indexOf('decimals') > -1 && args.indexOf('numbers') < 0)
   ) {
     // :decimals,numbers || :decimals
     regex += '0-9\\.';
-  } else if (args.includes('numbers')) {
+  } else if (args.indexOf('numbers') > -1) {
     // :numbers
     regex += '0-9';
   }
@@ -18,7 +18,7 @@ function getCharSetsForRegex (args) {
 }
 
 function addNewErrorMessageOrIgnore (errors, message) {
-  if (!errors.includes(message)) errors.push(message);
+  if (errors.indexOf(message) < 0) errors.push(message);
 }
 
 const validationRules = {
@@ -103,7 +103,7 @@ const validationRules = {
     }
   },
   in (...args) {
-    if (args[0].length && !args.slice(1).includes(args[0])) return -1;
+    if (args[0].length && args.slice(1).indexOf(args[0]) < 0) return -1;
   },
   allowedChars (...args) {
     if (
@@ -181,7 +181,7 @@ export default (inputs, rules, errMessages) => {
 
       // :value
       if (val) {
-        if (val.includes(',')) {
+        if (val.indexOf(',') > -1) {
           // :value1,value2,value3
           const vals = val.split(',');
           validationResult = validationRules[rule](
